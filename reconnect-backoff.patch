@@ -1,0 +1,123 @@
+--- apple_tv/__init__.py	2026-09-27 05:55:06
++++ apple_tv/__init__.py	2026-10-02 12:10:55
+@@ -2,6 +2,7 @@
+ 
+ import asyncio
+ import logging
++import time
+ from random import randrange
+ from typing import Any, cast, override
+ 
+@@ -53,6 +54,24 @@
+ BACKOFF_TIME_LOWER_LIMIT = 15  # seconds
+ BACKOFF_TIME_UPPER_LIMIT = 300  # Five minutes
+ 
++# OVERRIDE (davidcoulson/ha-apple-tv-override): a connection that is lost this
++# soon after it was made counts as short-lived. An Apple TV in standby accepts
++# a connection, announces about 15 s later that it is going to sleep, and stops
++# answering; reconnecting at once wakes it again, about once a minute for as
++# long as it sleeps. Each short-lived connection in a row doubles the wait
++# before the next attempt, up to BACKOFF_TIME_UPPER_LIMIT.
++SHORT_LIVED_CONNECTION = 120  # seconds
++
++
++def reconnect_delay(short_lived_connections: int) -> int:
++    """Seconds to wait before reconnecting after short-lived connections in a row."""
++    if short_lived_connections <= 0:
++        return 0
++    return min(
++        BACKOFF_TIME_LOWER_LIMIT * 2**short_lived_connections,
++        BACKOFF_TIME_UPPER_LIMIT,
++    )
++
+ PLATFORMS = [Platform.BINARY_SENSOR, Platform.MEDIA_PLAYER, Platform.REMOTE]
+ 
+ AUTH_EXCEPTIONS = (
+@@ -140,12 +159,15 @@
+     _connection_attempts = 0
+     _connection_was_lost = False
+     _task: asyncio.Task[None] | None = None
++    _connected_at: float | None = None
++    _short_lived_connections = 0
+ 
+     def __init__(self, hass: HomeAssistant, config_entry: ConfigEntry) -> None:
+         """Initialize power manager."""
+         self.config_entry = config_entry
+         self.hass = hass
+         self.is_on = not config_entry.options.get(CONF_START_OFF, False)
++        self._reconnect_now = asyncio.Event()
+ 
+     async def init(self) -> None:
+         """Initialize power management."""
+@@ -158,10 +180,25 @@
+ 
+         This is a callback function from pyatv.interface.DeviceListener.
+         """
+-        _LOGGER.warning(
+-            'Connection lost to Apple TV "%s"', self.config_entry.data[CONF_NAME]
++        short_lived = (
++            self._connected_at is not None
++            and time.monotonic() - self._connected_at < SHORT_LIVED_CONNECTION
+         )
++        # One warning when the trouble starts is enough: repeats of a
++        # short-lived connection being dropped go to debug.
++        _LOGGER.log(
++            logging.DEBUG
++            if short_lived and self._short_lived_connections
++            else logging.WARNING,
++            'Connection lost to Apple TV "%s"',
++            self.config_entry.data[CONF_NAME],
++        )
+         self._connection_was_lost = True
++        if short_lived:
++            self._short_lived_connections += 1
++        else:
++            self._short_lived_connections = 0
++        self._connected_at = None
+         self._handle_disconnect()
+ 
+     @override
+@@ -183,6 +220,9 @@
+     async def connect(self) -> None:
+         """Connect to device."""
+         self.is_on = True
++        # Somebody asked for the device: do not make them wait out a back-off.
++        self._short_lived_connections = 0
++        self._reconnect_now.set()
+         self._start_connect_loop()
+ 
+     async def disconnect(self) -> None:
+@@ -249,6 +289,19 @@
+         """Connect loop background task function."""
+         _LOGGER.debug("Starting connect loop")
+ 
++        if delay := reconnect_delay(self._short_lived_connections):
++            _LOGGER.debug(
++                "Last %d connection(s) were short-lived, reconnecting in %d seconds",
++                self._short_lived_connections,
++                delay,
++            )
++            self._reconnect_now.clear()
++            try:
++                async with asyncio.timeout(delay):
++                    await self._reconnect_now.wait()
++            except TimeoutError:
++                pass
++
+         # Try to find device and connect as long as the user has said that
+         # we are allowed to connect and we are not already connected.
+         while self.is_on and self.atv is None:
+@@ -346,8 +399,12 @@
+         self._async_setup_device_registry()
+ 
+         self._connection_attempts = 0
++        self._connected_at = time.monotonic()
+         if self._connection_was_lost:
+-            _LOGGER.warning(
++            # One warning when the trouble starts is enough: while the device
++            # keeps dropping short-lived connections, the rest go to debug.
++            _LOGGER.log(
++                logging.DEBUG if self._short_lived_connections else logging.WARNING,
+                 'Connection was re-established to device "%s"',
+                 self.config_entry.data[CONF_NAME],
+             )

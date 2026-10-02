@@ -1,0 +1,141 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "L'appareil est d\u00e9j\u00e0 configur\u00e9",
+            "already_in_progress": "La configuration est d\u00e9j\u00e0 en cours. Veuillez terminer la configuration actuelle avant de recommencer.",
+            "backoff": "L'appareil n'accepte pas les demandes d'appairage pour le moment (vous avez peut-\u00eatre saisi un code PIN non valide trop de fois), r\u00e9essayez plus tard.",
+            "device_did_not_pair": "Aucune tentative pour terminer l'appairage n'a \u00e9t\u00e9 effectu\u00e9e \u00e0 partir de l'appareil.",
+            "device_not_found": "L'appareil n'a pas \u00e9t\u00e9 trouv\u00e9 lors de la d\u00e9couverte, veuillez r\u00e9essayer de l'ajouter.",
+            "inconsistent_device": "Les protocoles attendus n'ont pas \u00e9t\u00e9 trouv\u00e9s lors de la d\u00e9couverte. Cela indique normalement un probl\u00e8me avec le DNS multicast (Zeroconf). Veuillez r\u00e9essayer d'ajouter l'appareil.",
+            "invalid_auth": "Authentification non valide",
+            "ipv6_not_supported": "IPv6 n'est pas pris en charge.",
+            "no_devices_found": "Aucun appareil trouv\u00e9 sur le r\u00e9seau",
+            "reauth_successful": "La r\u00e9authentification a r\u00e9ussi",
+            "setup_failed": "\u00c9chec de la configuration de l'appareil.",
+            "unknown": "Erreur inattendue"
+        },
+        "error": {
+            "already_configured": "L'appareil est d\u00e9j\u00e0 configur\u00e9",
+            "invalid_auth": "Authentification non valide",
+            "no_devices_found": "Aucun appareil trouv\u00e9 sur le r\u00e9seau",
+            "unknown": "Erreur inattendue"
+        },
+        "flow_title": "{name} ({type})",
+        "step": {
+            "confirm": {
+                "description": "Vous \u00eates sur le point d'ajouter `{name}` de type `{type}` \u00e0 Home Assistant.\n\n**Pour terminer le processus, vous devrez peut-\u00eatre saisir plusieurs codes PIN.**\n\nVeuillez noter que vous ne pourrez *pas* \u00e9teindre votre Apple TV avec cette int\u00e9gration. Seul le lecteur multim\u00e9dia de Home Assistant s'\u00e9teindra\u00a0!",
+                "title": "Confirmer l'ajout d'Apple TV"
+            },
+            "pair_no_pin": {
+                "description": "L'appairage est requis pour le service `{protocol}`. Veuillez saisir le code PIN {pin} sur votre appareil pour continuer.",
+                "title": "Appairage"
+            },
+            "pair_with_pin": {
+                "data": {
+                    "pin": "Code PIN"
+                },
+                "title": "Appairage"
+            },
+            "password": {
+                "description": "Un mot de passe est requis par `{protocol}`. Ceci n'est pas encore pris en charge, veuillez d\u00e9sactiver le mot de passe pour continuer.",
+                "title": "Mot de passe requis"
+            },
+            "protocol_disabled": {
+                "description": "L'appairage est requis pour `{protocol}` mais il est d\u00e9sactiv\u00e9 sur l'appareil. Veuillez examiner les restrictions d'acc\u00e8s potentielles (par exemple, autoriser tous les appareils du r\u00e9seau local \u00e0 se connecter) sur l'appareil.\n\nVous pouvez continuer sans appairer ce protocole, mais certaines fonctionnalit\u00e9s seront limit\u00e9es.",
+                "title": "Appairage impossible"
+            },
+            "restore_device": {
+                "description": "Reconfigurez cet appareil pour restaurer ses fonctionnalit\u00e9s.",
+                "title": "Reconfiguration de l'appareil"
+            },
+            "service_problem": {
+                "description": "Un probl\u00e8me est survenu lors de l'appairage du protocole `{protocol}`. Il sera ignor\u00e9.",
+                "title": "\u00c9chec de l'ajout du service"
+            },
+            "user": {
+                "data": {
+                    "device_input": "Appareil"
+                },
+                "description": "Commencez par saisir le nom de l'appareil (par exemple, cuisine ou chambre) ou l'adresse IP de l'Apple TV que vous souhaitez ajouter. \n\nSi vous ne pouvez pas voir votre appareil ou rencontrez des probl\u00e8mes, essayez de sp\u00e9cifier l'adresse IP de l'appareil.",
+                "title": "Configurer une nouvelle Apple TV"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "keyboard_focused": {
+                "name": "Focus du clavier"
+            }
+        }
+    },
+    "exceptions": {
+        "keyboard_error": {
+            "message": "Une erreur s'est produite lors de l'envoi du texte vers l'Apple TV"
+        },
+        "keyboard_not_available": {
+            "message": "La saisie au clavier n'est pas prise en charge par cet appareil"
+        },
+        "keyboard_not_focused": {
+            "message": "Aucun champ de saisie de texte n'est actuellement s\u00e9lectionn\u00e9 sur l'Apple TV"
+        },
+        "not_connected": {
+            "message": "L'Apple TV n'est pas connect\u00e9e"
+        },
+        "stream_failed": {
+            "message": "Impossible de diffuser du contenu multim\u00e9dia sur l'Apple TV."
+        },
+        "streaming_not_supported": {
+            "message": "La diffusion en continu du contenu multim\u00e9dia demand\u00e9 n'est pas prise en charge."
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "start_off": "Ne pas allumer l'appareil lors du d\u00e9marrage de Home Assistant"
+                },
+                "description": "Configurez les param\u00e8tres g\u00e9n\u00e9raux de l'appareil"
+            }
+        }
+    },
+    "services": {
+        "append_keyboard_text": {
+            "description": "Ajoute du texte au champ de saisie actuellement s\u00e9lectionn\u00e9 sur une Apple TV.",
+            "fields": {
+                "config_entry_id": {
+                    "description": "L'Apple TV vers laquelle envoyer le texte.",
+                    "name": "Apple TV"
+                },
+                "text": {
+                    "description": "Le texte \u00e0 ajouter.",
+                    "name": "Texte"
+                }
+            },
+            "name": "Ajouter du texte au clavier"
+        },
+        "clear_keyboard_text": {
+            "description": "Efface le texte du champ de saisie actuellement s\u00e9lectionn\u00e9 sur une Apple TV.",
+            "fields": {
+                "config_entry_id": {
+                    "description": "L'Apple TV vers laquelle envoyer le texte.",
+                    "name": "Apple TV"
+                }
+            },
+            "name": "Effacer le texte du clavier"
+        },
+        "set_keyboard_text": {
+            "description": "D\u00e9finit le texte du champ de saisie actuellement s\u00e9lectionn\u00e9 sur une Apple TV.",
+            "fields": {
+                "config_entry_id": {
+                    "description": "L'Apple TV vers laquelle envoyer le texte.",
+                    "name": "Apple TV"
+                },
+                "text": {
+                    "description": "Le texte \u00e0 d\u00e9finir.",
+                    "name": "Texte"
+                }
+            },
+            "name": "D\u00e9finir le texte du clavier"
+        }
+    }
+}

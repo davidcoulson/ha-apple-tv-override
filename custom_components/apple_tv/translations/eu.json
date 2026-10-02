@@ -1,0 +1,62 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Gailua dagoeneko konfiguratuta dago",
+            "invalid_auth": "Autentifikazio baliogabea",
+            "no_devices_found": "Ez da sarean gailurik aurkitu",
+            "reauth_successful": "Berrautortzea arrakastatsua izan da",
+            "unknown": "Ustekabeko errorea"
+        },
+        "error": {
+            "already_configured": "Gailua dagoeneko konfiguratuta dago",
+            "invalid_auth": "Autentifikazio baliogabea",
+            "no_devices_found": "Ez da sarean gailurik aurkitu",
+            "unknown": "Ustekabeko errorea"
+        },
+        "flow_title": "{name} ({type})",
+        "step": {
+            "pair_with_pin": {
+                "data": {
+                    "pin": "PIN kodea"
+                }
+            },
+            "password": {
+                "title": "Pasahitza beharrezkoa da"
+            },
+            "user": {
+                "data": {
+                    "device_input": "Gailua"
+                }
+            }
+        }
+    },
+    "services": {
+        "append_keyboard_text": {
+            "fields": {
+                "config_entry_id": {
+                    "name": "Apple TV"
+                },
+                "text": {
+                    "name": "Testua"
+                }
+            }
+        },
+        "clear_keyboard_text": {
+            "fields": {
+                "config_entry_id": {
+                    "name": "Apple TV"
+                }
+            }
+        },
+        "set_keyboard_text": {
+            "fields": {
+                "config_entry_id": {
+                    "name": "Apple TV"
+                },
+                "text": {
+                    "name": "Testua"
+                }
+            }
+        }
+    }
+}
