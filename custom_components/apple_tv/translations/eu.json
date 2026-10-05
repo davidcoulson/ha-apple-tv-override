@@ -4,12 +4,12 @@
             "already_configured": "Gailua dagoeneko konfiguratuta dago",
             "invalid_auth": "Autentifikazio baliogabea",
             "no_devices_found": "Ez da sarean gailurik aurkitu",
-            "reauth_successful": "Berrautortzea arrakastatsua izan da",
             "unknown": "Ustekabeko errorea"
         },
         "error": {
             "already_configured": "Gailua dagoeneko konfiguratuta dago",
             "invalid_auth": "Autentifikazio baliogabea",
+            "invalid_pin": "PIN baliogabea",
             "no_devices_found": "Ez da sarean gailurik aurkitu",
             "unknown": "Ustekabeko errorea"
         },

@@ -2,7 +2,6 @@
     "config": {
         "abort": {
             "already_configured": "Il dispositivo \u00e8 gi\u00e0 configurato",
-            "already_in_progress": "La configurazione \u00e8 gi\u00e0 in corso. Completa quella attuale prima di iniziarne un\u2019altra.",
             "backoff": "Il dispositivo non accetta richieste di abbinamento in questo momento (potresti aver inserito un codice PIN non valido troppe volte), riprova pi\u00f9 tardi.",
             "device_did_not_pair": "Nessun tentativo di completare il processo di abbinamento \u00e8 stato effettuato dal dispositivo.",
             "device_not_found": "Il dispositivo non \u00e8 stato trovato durante il rilevamento, prova ad aggiungerlo di nuovo.",
@@ -10,7 +9,6 @@
             "invalid_auth": "Autenticazione non valida",
             "ipv6_not_supported": "IPv6 non \u00e8 supportato.",
             "no_devices_found": "Nessun dispositivo trovato sulla rete",
-            "reauth_successful": "La riautenticazione \u00e8 avvenuta con successo",
             "setup_failed": "Impossibile configurare il dispositivo.",
             "unknown": "Errore imprevisto"
         },

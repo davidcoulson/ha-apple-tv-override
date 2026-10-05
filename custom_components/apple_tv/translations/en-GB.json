@@ -9,7 +9,6 @@
             "invalid_auth": "Invalid authentication",
             "ipv6_not_supported": "IPv6 is not supported.",
             "no_devices_found": "No devices found on the network",
-            "reauth_successful": "Re-authentication was successful",
             "setup_failed": "Failed to set up device.",
             "unknown": "Unexpected error"
         },

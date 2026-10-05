@@ -2,7 +2,6 @@
     "config": {
         "abort": {
             "already_configured": "Enheden er allerede konfigureret",
-            "already_in_progress": "Dette er allerede ved at blive konfigureret. Afslut den eksisterende konfiguration, f\u00f8r du starter forfra.",
             "backoff": "Enheden accepterer ikke parringsanmodninger p\u00e5 nuv\u00e6rende tidspunkt (du har m\u00e5ske indtastet en ugyldig PIN-kode for mange gange). Pr\u00f8v igen senere.",
             "device_did_not_pair": "Der blev ikke gjort noget fors\u00f8g p\u00e5 at afslutte parringsprocessen fra enheden.",
             "device_not_found": "Enheden blev ikke fundet under opdagelses-processen. Pr\u00f8v venligst at tilf\u00f8je den igen.",
@@ -10,13 +9,13 @@
             "invalid_auth": "Ugyldig godkendelse",
             "ipv6_not_supported": "IPv6 er ikke underst\u00f8ttet.",
             "no_devices_found": "Ingen enheder fundet p\u00e5 netv\u00e6rket",
-            "reauth_successful": "Genautentificering lykkedes",
             "setup_failed": "Enheden kunne ikke konfigureres.",
             "unknown": "Uventet fejl"
         },
         "error": {
             "already_configured": "Enheden er allerede konfigureret",
             "invalid_auth": "Ugyldig godkendelse",
+            "invalid_pin": "Ugyldig PIN-kode",
             "no_devices_found": "Ingen enheder fundet p\u00e5 netv\u00e6rket",
             "unknown": "Uventet fejl"
         },

@@ -6,7 +6,6 @@
             "inconsistent_device": "O\u010dekivani protokoli nisu prona\u0111eni tijekom otkrivanja. To obi\u010dno ukazuje na problem s multicast DNS-om (Zeroconf). Poku\u0161ajte ponovno dodati ure\u0111aj.",
             "invalid_auth": "Gre\u0161ka pri autentifikaciji",
             "ipv6_not_supported": "IPv6 nije podr\u017ean.",
-            "reauth_successful": "Ponovna provjera autenti\u010dnosti bila je uspje\u0161na",
             "setup_failed": "Postavljanje ure\u0111aja nije uspjelo."
         },
         "step": {

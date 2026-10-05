@@ -2,7 +2,6 @@
     "config": {
         "abort": {
             "already_configured": "Naprava je \u017ee konfigurirana",
-            "already_in_progress": "Name\u0161\u010danje se \u017ee izvaja",
             "backoff": "Naprava trenutno ne sprejema zahtev za seznanjanje (morda ste preve\u010dkrat vnesli neveljavno kodo PIN). Poskusite znova pozneje.",
             "device_did_not_pair": "Iz te naprave ni bilo poskusov zaklju\u010diti seznanjanja.",
             "device_not_found": "Naprava med odkrivanjem ni bila najdena, poskusite jo znova dodati.",
@@ -10,7 +9,6 @@
             "invalid_auth": "Neveljavna avtentikacija",
             "ipv6_not_supported": "IPv6 ni podprt.",
             "no_devices_found": "V omre\u017eju ni mogo\u010de najti nobene naprave",
-            "reauth_successful": "Ponovna avtentikacija je bila uspe\u0161na",
             "setup_failed": "Naprave ni bilo mogo\u010de nastaviti.",
             "unknown": "Nepri\u010dakovana napaka"
         },

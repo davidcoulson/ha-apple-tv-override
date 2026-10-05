@@ -2,7 +2,6 @@
     "config": {
         "abort": {
             "already_configured": "Cihaz zaten yap\u0131land\u0131r\u0131lm\u0131\u015f",
-            "already_in_progress": "Bu zaten yap\u0131land\u0131r\u0131l\u0131yor. Tekrar ba\u015flamadan \u00f6nce mevcut yap\u0131land\u0131rmay\u0131 tamamlay\u0131n.",
             "backoff": "Cihaz \u015fu anda e\u015fle\u015ftirme isteklerini kabul etmiyor (\u00e7ok say\u0131da ge\u00e7ersiz PIN kodu girmi\u015f olabilirsiniz), daha sonra tekrar deneyin.",
             "device_did_not_pair": "Cihazdan e\u015fle\u015ftirme i\u015flemini bitirmek i\u00e7in herhangi bir giri\u015fimde bulunulmad\u0131.",
             "device_not_found": "Cihaz ke\u015fif s\u0131ras\u0131nda bulunamad\u0131, l\u00fctfen tekrar eklemeyi deneyin.",
@@ -10,13 +9,13 @@
             "invalid_auth": "Ge\u00e7ersiz kimlik do\u011frulama",
             "ipv6_not_supported": "IPv6 desteklenmiyor.",
             "no_devices_found": "A\u011fda cihaz bulunamad\u0131",
-            "reauth_successful": "Yeniden kimlik do\u011frulama ba\u015far\u0131l\u0131 oldu",
             "setup_failed": "Cihaz kurulumu ba\u015far\u0131s\u0131z.",
             "unknown": "Beklenmeyen hata"
         },
         "error": {
             "already_configured": "Cihaz zaten yap\u0131land\u0131r\u0131lm\u0131\u015f",
             "invalid_auth": "Ge\u00e7ersiz kimlik do\u011frulama",
+            "invalid_pin": "Ge\u00e7ersiz PIN",
             "no_devices_found": "A\u011fda cihaz bulunamad\u0131",
             "unknown": "Beklenmeyen hata"
         },

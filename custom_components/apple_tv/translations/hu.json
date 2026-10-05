@@ -9,7 +9,6 @@
             "invalid_auth": "\u00c9rv\u00e9nytelen hiteles\u00edt\u00e9s",
             "ipv6_not_supported": "Az IPv6 nem t\u00e1mogatott.",
             "no_devices_found": "Nem tal\u00e1lhat\u00f3 eszk\u00f6z a h\u00e1l\u00f3zaton",
-            "reauth_successful": "Az \u00fajrahiteles\u00edt\u00e9s sikeres volt",
             "setup_failed": "Az eszk\u00f6z be\u00e1ll\u00edt\u00e1sa sikertelen.",
             "unknown": "V\u00e1ratlan hiba"
         },

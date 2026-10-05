@@ -9,7 +9,6 @@
             "invalid_auth": "Ugyldig godkjenning",
             "ipv6_not_supported": "IPv6 st\u00f8ttes ikke.",
             "no_devices_found": "Ingen enheter funnet p\u00e5 nettverket",
-            "reauth_successful": "Autentisering p\u00e5 nytt var vellykket",
             "setup_failed": "Kunne ikke konfigurere enheten.",
             "unknown": "Uventet feil"
         },

@@ -2,7 +2,6 @@
     "config": {
         "abort": {
             "already_configured": "Prietaisas jau sukonfig\u016bruotas",
-            "already_in_progress": "Tai jau konfig\u016bruojama. Prie\u0161 prad\u0117dami i\u0161 naujo, u\u017ebaikite esam\u0105 konfig\u016bracij\u0105.",
             "backoff": "Prietaisas \u0161iuo metu nepriima susiejimo u\u017eklaus\u0173 (gali b\u016bti, kad per daug kart\u0173 \u012fved\u0117te neteising\u0105 PIN kod\u0105), bandykite dar kart\u0105 v\u0117liau.",
             "device_did_not_pair": "I\u0161 prietaiso nebuvo bandoma u\u017ebaigti susiejimo proces\u0105.",
             "device_not_found": "Aptikimo metu prietaisas nerastas, pabandykite j\u012f prid\u0117ti dar kart\u0105.",
@@ -10,13 +9,13 @@
             "invalid_auth": "Neteisingas autentifikavimas",
             "ipv6_not_supported": "IPv6 nepalaikomas.",
             "no_devices_found": "Tinkle nerasta joki\u0173 prietais\u0173",
-            "reauth_successful": "Pakartotinis autentifikavimas buvo s\u0117kmingas",
             "setup_failed": "Nepavyko nustatyti prietaiso.",
             "unknown": "Netik\u0117ta klaida"
         },
         "error": {
             "already_configured": "Prietaisas jau sukonfig\u016bruotas",
             "invalid_auth": "Neteisingas autentifikavimas",
+            "invalid_pin": "Neteisingas PIN kodas",
             "no_devices_found": "Tinkle nerasta joki\u0173 prietais\u0173",
             "unknown": "Netik\u0117ta klaida"
         },

@@ -9,7 +9,6 @@
             "invalid_auth": "Autenticaci\u00f3 inv\u00e0lida",
             "ipv6_not_supported": "IPv6 no est\u00e0 suportat.",
             "no_devices_found": "No s'han trobat dispositius a la xarxa",
-            "reauth_successful": "Re-autenticaci\u00f3 realitzada correctament",
             "setup_failed": "No s'ha pogut configurar el dispositiu.",
             "unknown": "Error inesperat"
         },

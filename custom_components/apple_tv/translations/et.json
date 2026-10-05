@@ -2,7 +2,6 @@
     "config": {
         "abort": {
             "already_configured": "Seade on juba h\u00e4\u00e4lestatud",
-            "already_in_progress": "Seadistamine on juba k\u00e4imas",
             "backoff": "Seade ei aktsepteeri praegu sidumisn\u00f5udeid (v\u00f5ib-olla oled liiga palju kordi vale PIN-koodi sisestanud), proovi hiljem uuesti.",
             "device_did_not_pair": "Seade ei \u00fcritatud sidumisprotsessi l\u00f5pule viia.",
             "device_not_found": "Seadet avastamise ajal ei leitud, proovi seda uuesti lisada.",
@@ -10,13 +9,13 @@
             "invalid_auth": "Tuvastamine nurjus",
             "ipv6_not_supported": "IPv6 ei ole toetatud.",
             "no_devices_found": "V\u00f5rgust ei leitud \u00fchtegi seadet",
-            "reauth_successful": "Taastuvastamine \u00f5nnestus",
             "setup_failed": "Seadme h\u00e4\u00e4lestamine nurjus.",
             "unknown": "Ootamatu t\u00f5rge"
         },
         "error": {
             "already_configured": "Seade on juba h\u00e4\u00e4lestatud",
             "invalid_auth": "Vigane autentimine",
+            "invalid_pin": "Vale PIN kood",
             "no_devices_found": "V\u00f5rgust ei leitud \u00fchtegi seadet",
             "unknown": "Ootamatu t\u00f5rge"
         },

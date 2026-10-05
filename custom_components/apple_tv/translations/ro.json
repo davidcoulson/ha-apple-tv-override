@@ -9,7 +9,6 @@
             "invalid_auth": "Autentificare nevalid\u0103",
             "ipv6_not_supported": "IPv6 nu este acceptat.",
             "no_devices_found": "Nu s-au descoperit dispozitive in re\u021bea",
-            "reauth_successful": "Re-autentificarea s-a realizat cu succes",
             "setup_failed": "A e\u0219uat configurarea dispozitivului.",
             "unknown": "Eroare nea\u0219teptat\u0103"
         },

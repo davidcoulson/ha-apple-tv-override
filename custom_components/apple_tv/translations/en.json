@@ -2,7 +2,6 @@
     "config": {
         "abort": {
             "already_configured": "Device is already configured",
-            "already_in_progress": "This is already being configured. Finish the existing configuration before starting again.",
             "backoff": "Device does not accept pairing requests at this time (you might have entered an invalid PIN code too many times), try again later.",
             "device_did_not_pair": "No attempt to finish pairing process was made from the device.",
             "device_not_found": "Device was not found during discovery, please try adding it again.",
@@ -10,13 +9,13 @@
             "invalid_auth": "Invalid authentication",
             "ipv6_not_supported": "IPv6 is not supported.",
             "no_devices_found": "No devices found on the network",
-            "reauth_successful": "Re-authentication was successful",
             "setup_failed": "Failed to set up device.",
             "unknown": "Unexpected error"
         },
         "error": {
             "already_configured": "Device is already configured",
             "invalid_auth": "Invalid authentication",
+            "invalid_pin": "Invalid PIN",
             "no_devices_found": "No devices found on the network",
             "unknown": "Unexpected error"
         },

@@ -2,7 +2,6 @@
     "config": {
         "abort": {
             "already_configured": "Ger\u00e4t ist bereits konfiguriert",
-            "already_in_progress": "Die Konfiguration l\u00e4uft bereits. Schlie\u00dfe die bestehende Konfiguration ab, bevor du erneut beginnst.",
             "backoff": "Das Ger\u00e4t akzeptiert zurzeit keine Kopplungsanfragen (Du hast m\u00f6glicherweise zu oft einen ung\u00fcltigen PIN-Code eingegeben), versuche es sp\u00e4ter erneut.",
             "device_did_not_pair": "Es wurde kein Versuch unternommen, den Kopplungsvorgang vom Ger\u00e4t aus abzuschlie\u00dfen.",
             "device_not_found": "Das Ger\u00e4t wurde bei der Erkennung nicht gefunden. Bitte versuche es erneut hinzuzuf\u00fcgen.",
@@ -10,13 +9,13 @@
             "invalid_auth": "Ung\u00fcltige Authentifizierung",
             "ipv6_not_supported": "IPv6 wird nicht unterst\u00fctzt.",
             "no_devices_found": "Keine Ger\u00e4te im Netzwerk gefunden",
-            "reauth_successful": "Die erneute Authentifizierung war erfolgreich",
             "setup_failed": "Fehler beim Einrichten des Ger\u00e4ts.",
             "unknown": "Unerwarteter Fehler"
         },
         "error": {
             "already_configured": "Ger\u00e4t ist bereits konfiguriert",
             "invalid_auth": "Ung\u00fcltige Authentifizierung",
+            "invalid_pin": "Ung\u00fcltige PIN",
             "no_devices_found": "Keine Ger\u00e4te im Netzwerk gefunden",
             "unknown": "Unerwarteter Fehler"
         },

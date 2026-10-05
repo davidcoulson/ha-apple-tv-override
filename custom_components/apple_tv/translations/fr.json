@@ -2,7 +2,6 @@
     "config": {
         "abort": {
             "already_configured": "L'appareil est d\u00e9j\u00e0 configur\u00e9",
-            "already_in_progress": "La configuration est d\u00e9j\u00e0 en cours. Veuillez terminer la configuration actuelle avant de recommencer.",
             "backoff": "L'appareil n'accepte pas les demandes d'appairage pour le moment (vous avez peut-\u00eatre saisi un code PIN non valide trop de fois), r\u00e9essayez plus tard.",
             "device_did_not_pair": "Aucune tentative pour terminer l'appairage n'a \u00e9t\u00e9 effectu\u00e9e \u00e0 partir de l'appareil.",
             "device_not_found": "L'appareil n'a pas \u00e9t\u00e9 trouv\u00e9 lors de la d\u00e9couverte, veuillez r\u00e9essayer de l'ajouter.",
@@ -10,7 +9,6 @@
             "invalid_auth": "Authentification non valide",
             "ipv6_not_supported": "IPv6 n'est pas pris en charge.",
             "no_devices_found": "Aucun appareil trouv\u00e9 sur le r\u00e9seau",
-            "reauth_successful": "La r\u00e9authentification a r\u00e9ussi",
             "setup_failed": "\u00c9chec de la configuration de l'appareil.",
             "unknown": "Erreur inattendue"
         },

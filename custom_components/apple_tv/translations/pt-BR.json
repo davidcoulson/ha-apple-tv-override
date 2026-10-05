@@ -2,7 +2,6 @@
     "config": {
         "abort": {
             "already_configured": "O dispositivo j\u00e1 est\u00e1 configurado",
-            "already_in_progress": "Isso j\u00e1 est\u00e1 sendo configurado. Conclua a configura\u00e7\u00e3o existente antes de iniciar novamente.",
             "backoff": "O dispositivo n\u00e3o aceita solicita\u00e7\u00f5es de emparelhamento neste momento (voc\u00ea pode ter digitado um c\u00f3digo PIN inv\u00e1lido muitas vezes), tente novamente mais tarde.",
             "device_did_not_pair": "Nenhuma tentativa de concluir o processo de emparelhamento foi feita a partir do dispositivo.",
             "device_not_found": "O dispositivo n\u00e3o foi encontrado durante a descoberta. Tente adicion\u00e1-lo novamente.",
@@ -10,7 +9,6 @@
             "invalid_auth": "Autentica\u00e7\u00e3o inv\u00e1lida",
             "ipv6_not_supported": "IPv6 n\u00e3o \u00e9 compat\u00edvel.",
             "no_devices_found": "Nenhum dispositivo encontrado na rede",
-            "reauth_successful": "A reautentica\u00e7\u00e3o foi bem-sucedida",
             "setup_failed": "Falha ao configurar o dispositivo.",
             "unknown": "Erro inesperado"
         },

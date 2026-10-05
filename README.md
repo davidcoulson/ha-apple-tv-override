@@ -1,7 +1,7 @@
 # Apple TV (reconnect back-off)
 
 A patched copy of Home Assistant's built-in `apple_tv` integration, from Home
-Assistant **2026.9.4**. Installed as a custom integration, it replaces the
+Assistant **2026.10.0b0**. Installed as a custom integration, it replaces the
 built-in one. It changes one thing.
 
 ## The problem

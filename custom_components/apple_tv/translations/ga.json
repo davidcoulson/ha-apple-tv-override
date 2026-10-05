@@ -9,13 +9,13 @@
             "invalid_auth": "F\u00edordheimhni\u00fa neamhbhail\u00ed",
             "ipv6_not_supported": "N\u00ed thaca\u00edtear le IPv6.",
             "no_devices_found": "N\u00edor aims\u00edodh aon fheist\u00ed ar an l\u00edonra",
-            "reauth_successful": "D'\u00e9irigh leis an athfh\u00edordheimhni\u00fa",
             "setup_failed": "Theip ar an ngl\u00e9as a shocr\u00fa.",
             "unknown": "Earr\u00e1id gan choinne"
         },
         "error": {
             "already_configured": "T\u00e1 an gl\u00e9as cumraithe cheana f\u00e9in",
             "invalid_auth": "F\u00edordheimhni\u00fa neamhbhail\u00ed",
+            "invalid_pin": "PIN neamhbhail\u00ed",
             "no_devices_found": "N\u00edor aims\u00edodh aon fheist\u00ed ar an l\u00edonra",
             "unknown": "Earr\u00e1id gan choinne"
         },

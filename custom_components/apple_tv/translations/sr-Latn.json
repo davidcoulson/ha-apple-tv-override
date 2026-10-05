@@ -2,7 +2,6 @@
     "config": {
         "abort": {
             "already_configured": "Ure\u0111aj je ve\u0107 pode\u0161en",
-            "already_in_progress": "Ovo se ve\u0107 konfiguri\u0161e. Zavr\u0161ite postoje\u0107e pode\u0161avanje pre nego \u0161to poku\u0161ate ponovo.",
             "backoff": "Ure\u0111aj trenutno ne prihvata zahteve za uparivanje (mogu\u0107e je da ste previ\u0161e puta uneli neispravan PIN kod), poku\u0161ajte ponovo kasnije.",
             "device_did_not_pair": "Sa ure\u0111aja nije napravljen poku\u0161aj da se zavr\u0161i proces uparivanja.",
             "device_not_found": "Ure\u0111aj nije prona\u0111en tokom pronala\u017eenja, molimo vas da poku\u0161ate ponovo da ga dodate.",
@@ -10,13 +9,13 @@
             "invalid_auth": "Neva\u017ee\u0107i podaci za prijavu",
             "ipv6_not_supported": "IPv6 nije podr\u017ean.",
             "no_devices_found": "Nije prona\u0111en nijedan ure\u0111aj na mre\u017ei",
-            "reauth_successful": "Ponovna prijava je uspe\u0161na",
             "setup_failed": "Pode\u0161avanje ure\u0111aja nije uspelo.",
             "unknown": "Neo\u010dekivana gre\u0161ka"
         },
         "error": {
             "already_configured": "Ure\u0111aj je ve\u0107 pode\u0161en",
             "invalid_auth": "Neva\u017ee\u0107i podaci za prijavu",
+            "invalid_pin": "Neispravan  PIN",
             "no_devices_found": "Nije prona\u0111en nijedan ure\u0111aj na mre\u017ei",
             "unknown": "Neo\u010dekivana gre\u0161ka"
         },

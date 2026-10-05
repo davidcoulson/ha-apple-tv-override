@@ -2,7 +2,6 @@
     "config": {
         "abort": {
             "already_configured": "\u88dd\u7f6e\u5df2\u7d93\u8a2d\u5b9a\u5b8c\u6210",
-            "already_in_progress": "\u8a2d\u5b9a\u5df2\u7d93\u9032\u884c\u4e2d\u3002\u8acb\u5148\u5b8c\u6210\u73fe\u6709\u8a2d\u5b9a\uff0c\u7136\u5f8c\u518d\u91cd\u65b0\u958b\u59cb\u3002",
             "backoff": "\u88dd\u7f6e\u4e0d\u63a5\u53d7\u6b64\u6b21\u914d\u5c0d\u8acb\u6c42\uff08\u53ef\u80fd\u8f38\u5165\u592a\u591a\u6b21\u7121\u6548\u7684 PIN \u78bc\uff09\uff0c\u8acb\u7a0d\u5f8c\u518d\u8a66\u3002",
             "device_did_not_pair": "\u88dd\u7f6e\u6c92\u6709\u5617\u8a66\u914d\u5c0d\u5b8c\u6210\u904e\u7a0b\u3002",
             "device_not_found": "\u641c\u5c0b\u4e0d\u5230\u88dd\u7f6e\u3001\u8acb\u8a66\u8457\u518d\u65b0\u589e\u4e00\u6b21\u3002",
@@ -10,13 +9,13 @@
             "invalid_auth": "\u8eab\u4efd\u9a57\u8b49\u7121\u6548",
             "ipv6_not_supported": "\u4e0d\u652f\u63f4 IPv6\u3002",
             "no_devices_found": "\u7db2\u8def\u4e0a\u627e\u4e0d\u5230\u88dd\u7f6e",
-            "reauth_successful": "\u91cd\u65b0\u8a8d\u8b49\u6210\u529f",
             "setup_failed": "\u88dd\u7f6e\u8a2d\u5b9a\u5931\u6557\u3002",
             "unknown": "\u672a\u9810\u671f\u932f\u8aa4"
         },
         "error": {
             "already_configured": "\u88dd\u7f6e\u5df2\u7d93\u8a2d\u5b9a\u5b8c\u6210",
             "invalid_auth": "\u8eab\u4efd\u9a57\u8b49\u7121\u6548",
+            "invalid_pin": "PIN \u78bc\u7121\u6548",
             "no_devices_found": "\u7db2\u8def\u4e0a\u627e\u4e0d\u5230\u88dd\u7f6e",
             "unknown": "\u672a\u9810\u671f\u932f\u8aa4"
         },

@@ -2,7 +2,6 @@
     "config": {
         "abort": {
             "already_configured": "Enheten \u00e4r redan konfigurerad",
-            "already_in_progress": "Detta konfigureras redan. Slutf\u00f6r den befintliga konfigurationen innan du b\u00f6rjar igen.",
             "backoff": "Enheten accepterar f\u00f6r n\u00e4rvarande inte parkopplingsf\u00f6rfr\u00e5gningar (du kan ha angett en ogiltig PIN-kod f\u00f6r m\u00e5nga g\u00e5nger). F\u00f6rs\u00f6k igen senare.",
             "device_did_not_pair": "Inget f\u00f6rs\u00f6k att slutf\u00f6ra parkopplingsprocessen gjordes fr\u00e5n enheten.",
             "device_not_found": "Enheten hittades inte under uppt\u00e4ckten, f\u00f6rs\u00f6k att l\u00e4gga till den igen.",
@@ -10,13 +9,13 @@
             "invalid_auth": "Ogiltig autentisering",
             "ipv6_not_supported": "IPv6 st\u00f6ds inte.",
             "no_devices_found": "Inga enheter hittades i n\u00e4tverket",
-            "reauth_successful": "\u00c5terautentisering lyckades",
             "setup_failed": "Det gick inte att konfigurera enheten.",
             "unknown": "Ov\u00e4ntat fel"
         },
         "error": {
             "already_configured": "Enheten \u00e4r redan konfigurerad",
             "invalid_auth": "Ogiltig autentisering",
+            "invalid_pin": "Ogiltig PIN-kod",
             "no_devices_found": "Inga enheter hittades i n\u00e4tverket",
             "unknown": "Ov\u00e4ntat fel"
         },

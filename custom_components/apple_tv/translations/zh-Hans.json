@@ -9,7 +9,6 @@
             "invalid_auth": "\u8eab\u4efd\u9a8c\u8bc1\u65e0\u6548",
             "ipv6_not_supported": "\u4e0d\u652f\u6301 IPv6\u3002",
             "no_devices_found": "\u7f51\u7edc\u4e0a\u672a\u627e\u5230\u4efb\u4f55\u8bbe\u5907",
-            "reauth_successful": "\u91cd\u65b0\u8ba4\u8bc1\u6210\u529f",
             "setup_failed": "\u8bbe\u7f6e\u8bbe\u5907\u5931\u8d25\u3002",
             "unknown": "\u610f\u5916\u9519\u8bef"
         },

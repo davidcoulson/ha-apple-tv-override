@@ -9,7 +9,6 @@
             "invalid_auth": "Autentikasi tidak valid",
             "ipv6_not_supported": "IPv6 tidak didukung.",
             "no_devices_found": "Tidak ada perangkat yang ditemukan di jaringan",
-            "reauth_successful": "Autentikasi ulang berhasil",
             "setup_failed": "Gagal menyiapkan perangkat.",
             "unknown": "Kesalahan tak terduga"
         },

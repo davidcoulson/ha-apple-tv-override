@@ -9,7 +9,6 @@
             "invalid_auth": "Ongeldige authenticatie",
             "ipv6_not_supported": "IPv6 wordt niet ondersteund.",
             "no_devices_found": "Geen apparaten gevonden op het netwerk",
-            "reauth_successful": "Herauthenticatie geslaagd",
             "setup_failed": "Kan het apparaat niet instellen.",
             "unknown": "Onverwachte fout"
         },

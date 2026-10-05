@@ -2,7 +2,6 @@
     "config": {
         "abort": {
             "already_configured": "Zariadenie u\u017e je nakonfigurovan\u00e9",
-            "already_in_progress": "Toto sa u\u017e konfiguruje. Pred op\u00e4tovn\u00fdm spusten\u00edm dokon\u010dite existuj\u00facu konfigur\u00e1ciu.",
             "backoff": "Zariadenie moment\u00e1lne neprij\u00edma po\u017eiadavky na sp\u00e1rovanie (mo\u017eno ste pr\u00edli\u0161 ve\u013eakr\u00e1t zadali neplatn\u00fd PIN k\u00f3d), sk\u00faste to znova nesk\u00f4r.",
             "device_did_not_pair": "Zo zariadenia nebol vykonan\u00fd \u017eiadny pokus o dokon\u010denie procesu p\u00e1rovania.",
             "device_not_found": "Zariadenie sa po\u010das zis\u0165ovania nena\u0161lo, sk\u00faste ho prida\u0165 znova.",
@@ -10,13 +9,13 @@
             "invalid_auth": "Neplatn\u00e9 overenie",
             "ipv6_not_supported": "IPv6 nie je podporovan\u00e9",
             "no_devices_found": "V sieti sa nena\u0161li \u017eiadne zariadenia",
-            "reauth_successful": "Op\u00e4tovn\u00e9 overenie bolo \u00faspe\u0161n\u00e9",
             "setup_failed": "Zariadenie sa nepodarilo nastavi\u0165.",
             "unknown": "Neo\u010dak\u00e1van\u00e1 chyba"
         },
         "error": {
             "already_configured": "Zariadenie u\u017e je nakonfigurovan\u00e9",
             "invalid_auth": "Neplatn\u00e9 overenie",
+            "invalid_pin": "Neplatn\u00fd PIN",
             "no_devices_found": "V sieti sa nena\u0161li \u017eiadne zariadenia",
             "unknown": "Neo\u010dak\u00e1van\u00e1 chyba"
         },
