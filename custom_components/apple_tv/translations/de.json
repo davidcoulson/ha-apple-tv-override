@@ -69,6 +69,9 @@
         }
     },
     "exceptions": {
+        "command_failed": {
+            "message": "Der Befehl konnte nicht an das Apple TV gesendet werden"
+        },
         "keyboard_error": {
             "message": "Beim Senden von Text an das Apple TV ist ein Fehler aufgetreten"
         },

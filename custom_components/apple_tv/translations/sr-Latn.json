@@ -4,8 +4,8 @@
             "already_configured": "Ure\u0111aj je ve\u0107 pode\u0161en",
             "backoff": "Ure\u0111aj trenutno ne prihvata zahteve za uparivanje (mogu\u0107e je da ste previ\u0161e puta uneli neispravan PIN kod), poku\u0161ajte ponovo kasnije.",
             "device_did_not_pair": "Sa ure\u0111aja nije napravljen poku\u0161aj da se zavr\u0161i proces uparivanja.",
-            "device_not_found": "Ure\u0111aj nije prona\u0111en tokom pronala\u017eenja, molimo vas da poku\u0161ate ponovo da ga dodate.",
-            "inconsistent_device": "O\u010dekivani protokoli nisu prona\u0111eni tokom pronala\u017eenja. Ovo obi\u010dno ukazuje na problem sa multicast DNS-om (Zeroconf). Molimo vas da poku\u0161ate ponovo da dodate ure\u0111aj.",
+            "device_not_found": "Ure\u0111aj nije prona\u0111en tokom otkrivanja, molimo vas da poku\u0161ate ponovo da ga dodate.",
+            "inconsistent_device": "O\u010dekivani protokoli nisu prona\u0111eni tokom otkrivanja. Ovo obi\u010dno ukazuje na problem sa multicast DNS-om (Zeroconf). Molimo vas da poku\u0161ate ponovo da dodate ure\u0111aj.",
             "invalid_auth": "Neva\u017ee\u0107i podaci za prijavu",
             "ipv6_not_supported": "IPv6 nije podr\u017ean.",
             "no_devices_found": "Nije prona\u0111en nijedan ure\u0111aj na mre\u017ei",
@@ -69,6 +69,9 @@
         }
     },
     "exceptions": {
+        "command_failed": {
+            "message": "Slanje komande na Apple TV nije uspelo"
+        },
         "keyboard_error": {
             "message": "Do\u0161lo je do gre\u0161ke prilikom slanja teksta na Apple TV"
         },

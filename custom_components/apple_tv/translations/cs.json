@@ -69,6 +69,9 @@
         }
     },
     "exceptions": {
+        "command_failed": {
+            "message": "Nepoda\u0159ilo se odeslat p\u0159\u00edkaz do Apple TV"
+        },
         "keyboard_error": {
             "message": "P\u0159i odes\u00edl\u00e1n\u00ed textov\u00e9 zpr\u00e1vy do Apple TV do\u0161lo k chyb\u011b"
         },

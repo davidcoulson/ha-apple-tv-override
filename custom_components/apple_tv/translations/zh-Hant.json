@@ -69,6 +69,9 @@
         }
     },
     "exceptions": {
+        "command_failed": {
+            "message": "\u7121\u6cd5\u5c07\u6307\u4ee4\u50b3\u9001\u81f3 Apple TV"
+        },
         "keyboard_error": {
             "message": "\u50b3\u9001\u6587\u5b57\u81f3 Apple TV \u6642\u767c\u751f\u932f\u8aa4"
         },

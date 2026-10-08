@@ -1,15 +1,23 @@
 {
   "domain": "apple_tv",
   "name": "Apple TV",
-  "codeowners": ["@postlund"],
+  "codeowners": [
+    "@postlund"
+  ],
   "config_flow": true,
-  "dependencies": ["zeroconf"],
+  "dependencies": [
+    "zeroconf"
+  ],
   "documentation": "https://www.home-assistant.io/integrations/apple_tv",
   "integration_type": "device",
   "iot_class": "local_push",
-  "loggers": ["pyatv", "srptools"],
-  "requirements": ["pyatv==0.18.0"],
-  "version": "2026.10.0.1",
+  "loggers": [
+    "pyatv",
+    "srptools"
+  ],
+  "requirements": [
+    "pyatv==0.18.0"
+  ],
   "zeroconf": [
     "_mediaremotetv._tcp.local.",
     "_companion-link._tcp.local.",
@@ -54,5 +62,6 @@
       },
       "type": "_raop._tcp.local."
     }
-  ]
+  ],
+  "version": "2026.10.0.1"
 }

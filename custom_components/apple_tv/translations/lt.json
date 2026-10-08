@@ -69,6 +69,9 @@
         }
     },
     "exceptions": {
+        "command_failed": {
+            "message": "Nepavyko i\u0161si\u0173sti komandos \u012f Apple TV"
+        },
         "keyboard_error": {
             "message": "Siun\u010diant tekst\u0105 \u012f Apple TV \u012fvyko klaida"
         },
