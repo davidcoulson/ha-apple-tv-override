@@ -1,5 +1,12 @@
 # Apple TV (reconnect back-off)
 
+## TL;DR
+
+- **Stops Home Assistant from keeping your Apple TV awake.** The built-in Apple TV integration reconnects as soon as a sleeping Apple TV drops the connection, which wakes it up again, about once a minute, all night, with a log warning each time.
+- **This version backs off instead:** it waits longer after each quick drop (up to 5 minutes) and logs the warning only once.
+- **Everything else is the built-in integration,** unchanged. The only trade-off: if someone wakes the Apple TV with its own remote, Home Assistant can take up to 5 minutes to notice.
+- **Temporary:** remove it once Home Assistant or its Apple TV library handles this itself.
+
 A patched copy of Home Assistant's built-in `apple_tv` integration, from Home
 Assistant **2026.10.0b0**. Installed as a custom integration, it replaces the
 built-in one. It changes one thing.
