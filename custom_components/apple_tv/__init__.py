@@ -1,6 +1,7 @@
 """The Apple TV integration."""
 
 import asyncio
+from contextlib import suppress
 import logging
 import time
 from random import randrange
@@ -233,21 +234,26 @@ class AppleTVManager(DeviceListener):
             if self.atv:
                 self.atv.close()
                 self.atv = None
-            if self._task:
-                self._task.cancel()
-                self._task = None
+            task = self._task
+            if task and task is not asyncio.current_task():
+                task.cancel()
+                with suppress(asyncio.CancelledError):
+                    await task
+                if self._task is task:
+                    self._task = None
         except Exception:
             _LOGGER.exception("An error occurred while disconnecting")
 
     def _start_connect_loop(self) -> None:
         """Start background connect loop to device."""
         if not self._task and self.atv is None and self.is_on:
-            self._task = self.config_entry.async_create_background_task(
+            task = self.config_entry.async_create_background_task(
                 self.hass,
                 self._connect_loop(),
                 name=f"apple_tv connect loop {self.config_entry.title}",
                 eager_start=True,
             )
+            self._task = None if task.done() else task
         else:
             _LOGGER.debug(
                 "Not starting connect loop (%s, %s)", self.atv is None, self.is_on
@@ -281,7 +287,7 @@ class AppleTVManager(DeviceListener):
             )
             return
         except asyncio.CancelledError:
-            pass
+            raise
         except Exception:
             _LOGGER.exception("Failed to connect")
 
@@ -289,40 +295,43 @@ class AppleTVManager(DeviceListener):
         """Connect loop background task function."""
         _LOGGER.debug("Starting connect loop")
 
-        if delay := reconnect_delay(self._short_lived_connections):
-            _LOGGER.debug(
-                "Last %d connection(s) were short-lived, reconnecting in %d seconds",
-                self._short_lived_connections,
-                delay,
-            )
-            self._reconnect_now.clear()
-            try:
-                async with asyncio.timeout(delay):
-                    await self._reconnect_now.wait()
-            except TimeoutError:
-                pass
+        try:
+            if delay := reconnect_delay(self._short_lived_connections):
+                _LOGGER.debug(
+                    "Last %d connection(s) were short-lived, reconnecting in %d seconds",
+                    self._short_lived_connections,
+                    delay,
+                )
+                self._reconnect_now.clear()
+                try:
+                    async with asyncio.timeout(delay):
+                        await self._reconnect_now.wait()
+                except TimeoutError:
+                    pass
 
-        # Try to find device and connect as long as the user has said that
-        # we are allowed to connect and we are not already connected.
-        while self.is_on and self.atv is None:
-            await self.connect_once(raise_missing_credentials=False)
-            if self.atv is not None:
-                # Calling self.connect_once may have set self.atv
-                break  # type: ignore[unreachable]
-            self._connection_attempts += 1
-            backoff = min(
-                max(
-                    BACKOFF_TIME_LOWER_LIMIT,
-                    randrange(2**self._connection_attempts),
-                ),
-                BACKOFF_TIME_UPPER_LIMIT,
-            )
+            # Try to find device and connect as long as the user has said that
+            # we are allowed to connect and we are not already connected.
+            while self.is_on and self.atv is None:
+                await self.connect_once(raise_missing_credentials=False)
+                if not self.is_on or self.atv is not None:
+                    # Calling self.connect_once may have set self.atv
+                    break  # type: ignore[unreachable]
+                self._connection_attempts += 1
+                backoff = min(
+                    max(
+                        BACKOFF_TIME_LOWER_LIMIT,
+                        randrange(2**self._connection_attempts),
+                    ),
+                    BACKOFF_TIME_UPPER_LIMIT,
+                )
 
-            _LOGGER.debug("Reconnecting in %d seconds", backoff)
-            await asyncio.sleep(backoff)
+                _LOGGER.debug("Reconnecting in %d seconds", backoff)
+                await asyncio.sleep(backoff)
 
-        _LOGGER.debug("Connect loop ended")
-        self._task = None
+        finally:
+            _LOGGER.debug("Connect loop ended")
+            if self._task is asyncio.current_task():
+                self._task = None
 
     async def _scan(self) -> AppleTV | None:
         """Try to find device by scanning for it."""
