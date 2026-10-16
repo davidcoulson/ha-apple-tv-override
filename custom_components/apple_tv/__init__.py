@@ -223,6 +223,7 @@ class AppleTVManager(DeviceListener):
         self.is_on = True
         # Somebody asked for the device: do not make them wait out a back-off.
         self._short_lived_connections = 0
+        self._connection_attempts = 0
         self._reconnect_now.set()
         self._start_connect_loop()
 
@@ -278,7 +279,7 @@ class AppleTVManager(DeviceListener):
         """Try to connect once."""
         try:
             await self._connect_once(raise_missing_credentials)
-        except exceptions.AuthenticationError:
+        except AUTH_EXCEPTIONS:
             self.config_entry.async_start_reauth(self.hass)
             await self.disconnect()
             _LOGGER.exception(
@@ -312,10 +313,13 @@ class AppleTVManager(DeviceListener):
             # Try to find device and connect as long as the user has said that
             # we are allowed to connect and we are not already connected.
             while self.is_on and self.atv is None:
+                self._reconnect_now.clear()
                 await self.connect_once(raise_missing_credentials=False)
                 if not self.is_on or self.atv is not None:
                     # Calling self.connect_once may have set self.atv
                     break  # type: ignore[unreachable]
+                if self._reconnect_now.is_set():
+                    continue
                 self._connection_attempts += 1
                 backoff = min(
                     max(
@@ -326,7 +330,11 @@ class AppleTVManager(DeviceListener):
                 )
 
                 _LOGGER.debug("Reconnecting in %d seconds", backoff)
-                await asyncio.sleep(backoff)
+                try:
+                    async with asyncio.timeout(backoff):
+                        await self._reconnect_now.wait()
+                except TimeoutError:
+                    pass
 
         finally:
             _LOGGER.debug("Connect loop ended")
