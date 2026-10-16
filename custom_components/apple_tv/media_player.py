@@ -1,5 +1,6 @@
 """Support for Apple TV media player."""
 
+import asyncio
 from collections.abc import Callable, Coroutine
 from datetime import datetime
 from functools import wraps
@@ -53,6 +54,8 @@ _LOGGER = logging.getLogger(__name__)
 
 PARALLEL_UPDATES = 0
 
+TURN_ON_TIMEOUT = 30
+
 # We always consider these to be supported
 SUPPORT_BASE = MediaPlayerEntityFeature.TURN_ON | MediaPlayerEntityFeature.TURN_OFF
 
@@ -98,6 +101,45 @@ SUPPORT_FEATURE_MAPPING = {
     FeatureName.LaunchApp: MediaPlayerEntityFeature.BROWSE_MEDIA
     | MediaPlayerEntityFeature.SELECT_SOURCE,
 }
+
+
+def _redact_media_id(media_id: str) -> str:
+    """Remove URL credentials before logging, leaving file paths unchanged."""
+    try:
+        url = URL(media_id)
+        if not url.is_absolute() or not url.host:
+            return media_id
+        url = url.with_user(None)
+        return str(
+            url.with_query(
+                [
+                    (
+                        key,
+                        "REDACTED"
+                        if any(
+                            part in key.lower()
+                            for part in (
+                                "auth",
+                                "token",
+                                "key",
+                                "pass",
+                                "pwd",
+                                "secret",
+                                "signature",
+                                "credential",
+                                "session",
+                                "jwt",
+                                "sig",
+                            )
+                        )
+                        else value,
+                    )
+                    for key, value in url.query.items()
+                ]
+            )
+        )
+    except ValueError:
+        return "<invalid URL>"
 
 
 async def async_setup_entry(
@@ -405,12 +447,12 @@ class AppleTvMediaPlayer(
 
         try:
             if use_stream_file:
-                _LOGGER.debug("Streaming %s via RAOP", media_id)
+                _LOGGER.debug("Streaming %s via RAOP", _redact_media_id(media_id))
                 await self.atv.stream.stream_file(media_id)
             elif self._is_feature_available(FeatureName.PlayUrl) and (
                 (parsed_url := URL(media_id)).is_absolute() and parsed_url.host
             ):
-                _LOGGER.debug("Playing %s via AirPlay", media_id)
+                _LOGGER.debug("Playing %s via AirPlay", _redact_media_id(media_id))
                 await self.atv.stream.play_url(media_id)
             else:
                 raise HomeAssistantError(
@@ -584,8 +626,20 @@ class AppleTvMediaPlayer(
     @override
     async def async_turn_on(self) -> None:
         """Turn the media player on."""
-        if self.atv and self._is_feature_available(FeatureName.TurnOn):
-            await self.atv.power.turn_on()
+        atv = self.atv
+        if atv is None:
+            await self.manager.connect()
+            if task := self.manager._task:
+                try:
+                    async with asyncio.timeout(TURN_ON_TIMEOUT):
+                        await asyncio.shield(task)
+                except TimeoutError as ex:
+                    raise HomeAssistantError("Timed out connecting to Apple TV") from ex
+            atv = self.manager.atv
+            if atv is None:
+                raise HomeAssistantError("Failed to connect to Apple TV")
+        if atv.features.in_state(FeatureState.Available, FeatureName.TurnOn):
+            await atv.power.turn_on()
 
     @override
     async def async_turn_off(self) -> None:
