@@ -472,12 +472,13 @@ class AppleTVConfigFlow(ConfigFlow, domain=DOMAIN):
         # Initiate the pairing process
         abort_reason = None
         session = async_get_clientsession(self.hass)
-        self.pairing = await pair(
-            self.atv, self.protocol, self.hass.loop, session=session, **pair_args
-        )
         try:
+            self.pairing = await pair(
+                self.atv, self.protocol, self.hass.loop, session=session, **pair_args
+            )
             await self.pairing.begin()
         except exceptions.ConnectionFailedError:
+            await self._async_cleanup()
             return await self.async_step_service_problem()
         except exceptions.BackOffError:
             abort_reason = "backoff"
@@ -550,13 +551,24 @@ class AppleTVConfigFlow(ConfigFlow, domain=DOMAIN):
         assert self.pairing
         assert self.protocol
         if user_input is not None:
-            await self.pairing.finish()
-            if self.pairing.has_paired:
-                self.credentials[self.protocol.value] = self.pairing.service.credentials
-                return await self.async_pair_next_protocol()
+            try:
+                await self.pairing.finish()
+            except exceptions.PairingError:
+                _LOGGER.exception("Authentication problem")
+                abort_reason = "invalid_auth"
+            except Exception:
+                _LOGGER.exception("Unexpected exception")
+                abort_reason = "unknown"
+            else:
+                if self.pairing.has_paired:
+                    self.credentials[self.protocol.value] = (
+                        self.pairing.service.credentials
+                    )
+                    return await self.async_pair_next_protocol()
+                abort_reason = "device_did_not_pair"
 
-            await self.pairing.close()
-            return self.async_abort(reason="device_did_not_pair")
+            await self._async_cleanup()
+            return self.async_abort(reason=abort_reason)
 
         pin = randrange(1000, stop=10000)
         self.pairing.pin(pin)
@@ -594,11 +606,19 @@ class AppleTVConfigFlow(ConfigFlow, domain=DOMAIN):
             description_placeholders={"protocol": protocol_str(self.protocol)},
         )
 
+    @callback
+    @override
+    def async_remove(self) -> None:
+        """Release pairing resources when the flow is removed."""
+        pairing, self.pairing = self.pairing, None
+        if pairing is not None:
+            self.hass.async_create_task(pairing.close())
+
     async def _async_cleanup(self) -> None:
         """Clean up allocated resources."""
-        if self.pairing is not None:
-            await self.pairing.close()
-            self.pairing = None
+        pairing, self.pairing = self.pairing, None
+        if pairing is not None:
+            await pairing.close()
 
     async def _async_get_entry(self) -> ConfigFlowResult:
         """Return config entry or update existing config entry."""
