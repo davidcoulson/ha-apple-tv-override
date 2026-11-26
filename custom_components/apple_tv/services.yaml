@@ -29,3 +29,5 @@ clear_keyboard_text:
       selector:
         config_entry:
           integration: apple_tv
+
+reload_code:

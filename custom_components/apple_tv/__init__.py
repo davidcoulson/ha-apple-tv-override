@@ -2,7 +2,9 @@
 
 import asyncio
 from contextlib import suppress
+import importlib
 import logging
+import sys
 import time
 from random import randrange
 from typing import Any, cast, override
@@ -28,12 +30,18 @@ from homeassistant.const import (
     EVENT_HOMEASSISTANT_STOP,
     Platform,
 )
-from homeassistant.core import Event, HomeAssistant, callback
-from homeassistant.exceptions import ConfigEntryAuthFailed, ConfigEntryNotReady
+from homeassistant.core import Event, HomeAssistant, ServiceCall, callback
+from homeassistant.exceptions import (
+    ConfigEntryAuthFailed,
+    ConfigEntryNotReady,
+    HomeAssistantError,
+)
 from homeassistant.helpers import config_validation as cv, device_registry as dr
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.helpers.dispatcher import async_dispatcher_send
 from homeassistant.helpers.typing import ConfigType
+from homeassistant.helpers.service import async_register_admin_service
+from homeassistant.loader import async_get_integration
 
 from .const import (
     CONF_CREDENTIALS,
@@ -107,6 +115,7 @@ async def async_setup(hass: HomeAssistant, config: ConfigType) -> bool:
 
 async def async_setup_entry(hass: HomeAssistant, entry: AppleTvConfigEntry) -> bool:
     """Set up a config entry for Apple TV."""
+    _register_reload_code(hass)
     manager = AppleTVManager(hass, entry)
 
     if manager.is_on:
@@ -475,3 +484,59 @@ class AppleTVManager(DeviceListener):
         async_dispatcher_send(
             self.hass, f"{signal}_{self.config_entry.unique_id}", *args
         )
+
+
+def _forget_code(hass: HomeAssistant, package: str, domain: str) -> None:
+    """Drop a package's modules so the next setup imports them from disk again.
+
+    Home Assistant keeps its own copy of each imported integration module
+    (hass.data["components"], keyed "<domain>" and "<domain>.<platform>") next
+    to sys.modules; both have to go.
+    """
+    for cache, root in (
+        (sys.modules, package),
+        (hass.data.get("components", {}), domain),
+        (hass.data.get("missing_platforms", {}), domain),
+    ):
+        for name in [n for n in cache if n == root or n.startswith(root + ".")]:
+            del cache[name]
+    importlib.invalidate_caches()  # a file added since the last import may not be found
+
+
+def _register_reload_code(hass: HomeAssistant) -> None:
+    """Dev: apple_tv.reload_code loads the Python files from disk without a restart."""
+
+    async def _reload_code(call: ServiceCall) -> None:
+        # Disabled and ignored entries are never set up, so they are not ours to reload.
+        entries = hass.config_entries.async_entries(
+            DOMAIN, include_ignore=False, include_disabled=False
+        )
+        for entry in entries:
+            if not await hass.config_entries.async_unload(entry.entry_id):
+                raise HomeAssistantError(
+                    f"{DOMAIN} did not unload; restart Home Assistant instead"
+                )
+        _forget_code(hass, __name__, DOMAIN)
+        try:
+            component = await (
+                await async_get_integration(hass, DOMAIN)
+            ).async_get_component()
+            # async_setup registers the services again with the new code
+            await component.async_setup(hass, {})
+        except Exception as err:
+            # This handler stays registered, so the action works again once the code is fixed.
+            raise HomeAssistantError(
+                f"{DOMAIN} is unloaded: the new code did not load ({err}). "
+                f"Fix it and call {DOMAIN}.reload_code again"
+            ) from err
+        failed = [
+            e.title
+            for e in entries
+            if not await hass.config_entries.async_setup(e.entry_id)
+        ]
+        if failed:
+            raise HomeAssistantError(
+                f"{DOMAIN} did not set up again for {failed}; see the log"
+            )
+
+    async_register_admin_service(hass, DOMAIN, "reload_code", _reload_code)

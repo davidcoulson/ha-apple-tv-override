@@ -16,6 +16,9 @@
     "clear_keyboard_text": {
       "service": "mdi:keyboard-off"
     },
+    "reload_code": {
+      "service": "mdi:code-braces"
+    },
     "set_keyboard_text": {
       "service": "mdi:keyboard"
     }
