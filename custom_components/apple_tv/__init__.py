@@ -41,7 +41,6 @@ from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.helpers.dispatcher import async_dispatcher_send
 from homeassistant.helpers.typing import ConfigType
 from homeassistant.helpers.service import async_register_admin_service
-from homeassistant.loader import async_get_integration
 
 from .const import (
     CONF_CREDENTIALS,
@@ -486,6 +485,12 @@ class AppleTVManager(DeviceListener):
         )
 
 
+def _import_code(package: str) -> None:
+    """Import the new package and its platforms in the executor, so HA's own import is a cache hit."""
+    for platform in importlib.import_module(package).PLATFORMS:
+        importlib.import_module(f"{package}.{platform}")
+
+
 def _forget_code(hass: HomeAssistant, package: str, domain: str) -> None:
     """Drop a package's modules so the next setup imports them from disk again.
 
@@ -518,9 +523,8 @@ def _register_reload_code(hass: HomeAssistant) -> None:
                 )
         _forget_code(hass, __name__, DOMAIN)
         try:
-            component = await (
-                await async_get_integration(hass, DOMAIN)
-            ).async_get_component()
+            await hass.async_add_import_executor_job(_import_code, __name__)
+            component = sys.modules[__name__]
             # async_setup registers the services again with the new code
             await component.async_setup(hass, {})
         except Exception as err:
