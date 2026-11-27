@@ -4,9 +4,11 @@ import asyncio
 from contextlib import suppress
 import importlib
 import importlib.util
+import json
 import logging
 import sys
 import time
+from pathlib import Path
 from random import randrange
 from typing import Any, cast, override
 
@@ -37,7 +39,7 @@ from homeassistant.exceptions import (
     ConfigEntryNotReady,
     HomeAssistantError,
 )
-from homeassistant.helpers import config_validation as cv, device_registry as dr
+from homeassistant.helpers import config_validation as cv, device_registry as dr, issue_registry as ir
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.helpers.dispatcher import async_dispatcher_send
 from homeassistant.helpers.typing import ConfigType
@@ -150,6 +152,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: AppleTvConfigEntry) -> b
     await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
     await manager.init()
 
+    _clear_marketplace_restart(hass)
     return True
 
 
@@ -554,3 +557,22 @@ def _register_reload_code(hass: HomeAssistant) -> None:
             )
 
     async_register_admin_service(hass, DOMAIN, "reload_code", _reload_code)
+
+
+_CODE_VERSION = json.loads((Path(__file__).parent / "manifest.json").read_text())["version"]
+
+
+def _clear_marketplace_restart(hass) -> None:
+    """Drop Marketplace's "restart to finish the update" repair for the running Apple TV version.
+
+    Called from entry setup, so it uses the new code's version even when the old handler did
+    the reload; a repair for any other version still waits.
+    """
+    for (domain, issue_id), issue in list(ir.async_get(hass).issues.items()):
+        if (
+            domain == "marketplace"
+            and issue_id.startswith("restart_required_")
+            and issue.issue_domain == DOMAIN
+            and issue_id.rsplit("/", 1)[-1].removeprefix("v") == _CODE_VERSION
+        ):
+            ir.async_delete_issue(hass, domain, issue_id)

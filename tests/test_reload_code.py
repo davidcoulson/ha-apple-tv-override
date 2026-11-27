@@ -1,8 +1,15 @@
 """apple_tv.reload_code: the helper that drops modules, and the action itself."""
 
 import sys
+import json
+from pathlib import Path
 import types
 
+import pytest
+
+from homeassistant.helpers import issue_registry as ir
+
+from custom_components import apple_tv
 from custom_components.apple_tv import _forget_code, _register_reload_code
 
 
@@ -31,3 +38,34 @@ async def test_forget_code_drops_only_the_package(hass):
 async def test_action_is_registered(hass):
     _register_reload_code(hass)
     assert hass.services.has_service("apple_tv", "reload_code")
+
+
+@pytest.mark.parametrize("expected_lingering_timers", [True])  # the issue registry schedules a delayed save
+async def test_reload_clears_only_marketplaces_running_version_repairs(hass, monkeypatch):
+    mod = apple_tv
+    monkeypatch.setattr(mod, "_CODE_VERSION", "1.2.3")
+    for domain, issue_id, issue_domain in (
+        ("marketplace", "restart_required_1_tags/1.2.3", "apple_tv"),
+        ("marketplace", "restart_required_2_tags/v1.2.3", "apple_tv"),
+        ("marketplace", "restart_required_3_tags/1.2.4", "apple_tv"),
+        ("marketplace", "restart_required_4_tags/1.2.3", "ssh"),
+        ("marketplace", "critical_x/1.2.3", "apple_tv"),
+        ("apple_tv", "restart_required_x/1.2.3", "apple_tv"),
+    ):
+        ir.async_create_issue(
+            hass, domain, issue_id, is_fixable=False, issue_domain=issue_domain,
+            severity=ir.IssueSeverity.WARNING, translation_key="x",
+        )
+    mod._clear_marketplace_restart(hass)
+    assert set(ir.async_get(hass).issues) == {
+        ("marketplace", "restart_required_3_tags/1.2.4"),
+        ("marketplace", "restart_required_4_tags/1.2.3"),
+        ("marketplace", "critical_x/1.2.3"),
+        ("apple_tv", "restart_required_x/1.2.3"),
+    }
+
+
+def test_code_version_is_the_manifest_version():
+    mod = apple_tv
+    manifest = json.loads((Path(mod.__file__).parent / "manifest.json").read_text())
+    assert mod._CODE_VERSION == manifest["version"]
